@@ -1,6 +1,7 @@
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
+    kotlin("plugin.serialization") version "1.8.21"
 }
 
 kotlin {
@@ -22,11 +23,15 @@ kotlin {
         }
     }
 
+    val ktorVersion = "2.3.0"
+
     sourceSets {
         val commonMain by getting
         val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
+            val commonMain by getting {
+                dependencies {
+                    implementation("io.ktor:ktor-client-serialization:$ktorVersion")
+                }
             }
         }
         val androidMain by getting
