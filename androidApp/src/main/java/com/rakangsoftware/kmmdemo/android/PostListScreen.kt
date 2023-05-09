@@ -12,18 +12,21 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.rakangsoftware.kmmdemo.data.network.PostRepositoryKtor
+import com.rakangsoftware.kmmdemo.data.database.DatabaseDriverFactory
+import com.rakangsoftware.kmmdemo.data.database.PostRepositorySQLDelight
 import com.rakangsoftware.kmmdemo.domain.Post
 
 @Composable
 fun PostListScreen(modifier: Modifier = Modifier, onPostClicked: (id: Int) -> Unit) {
+    val context = LocalContext.current
     val list = remember { mutableStateListOf<Post>() }
     LaunchedEffect(true) {
         list.apply {
             clear()
             addAll(
-                PostRepositoryKtor()
+                PostRepositorySQLDelight(DatabaseDriverFactory(context))
                     .getAll()
             )
         }

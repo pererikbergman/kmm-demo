@@ -1,0 +1,22 @@
+CREATE TABLE PostDto (
+    userId INTEGER NOT NULL,
+    id INTEGER NOT NULL,
+    title TEXT,
+    body TEXT
+);
+
+insertPostDto:
+INSERT INTO PostDto(userId, id, title, body)
+VALUES(?, ?, ?, ?);
+
+removeAllPostDtos:
+DELETE FROM PostDto;
+
+selectAllPostDto:
+SELECT PostDto.*
+FROM PostDto;
+
+selectPostDtoById:
+SELECT PostDto.*
+FROM PostDto
+WHERE id =?;

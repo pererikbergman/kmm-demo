@@ -16,7 +16,7 @@ struct PostListScreen: View {
     var body: some View {
         PostListView(posts: posts, onPostClicked: onPostClicked)
             .onAppear {
-                let repository : PostRepository = PostRepositoryKtor()
+                let repository = PostRepositorySQLDelight(databaseDriverFactory: DatabaseDriverFactory())
                 repository.getAll { fetchedPosts, error in
                     if let error = error {
                         print("Error: \(error)")
