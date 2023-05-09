@@ -1,0 +1,41 @@
+# Gradle files
+.gradle/
+build/
+
+content-creator-old
+
+# IntelliJ IDEA files
+.idea/
+*.iml
+*.ipr
+*.iws
+.idea_modules/
+
+# Android files
+/local.properties
+*.log
+*.jks
+
+# iOS files
+*.xcodeproj/
+*.xcworkspace/
+*.pbxproj
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcuserstate
+
+# draw.io
+*.bkp
+
+# Compiled files
+/bin/
+/lib/
+/*.klib
+
+# Other
+.DS_Store
+Thumbs.db
+
+# PDF
+*.pdf
