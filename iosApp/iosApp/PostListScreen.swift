@@ -10,23 +10,21 @@ import SwiftUI
 import shared
 
 struct PostListScreen: View {
+
+    @ObservedObject var viewModel: PostListViewModel
+    
     @State var posts = [Post]()
-    let onPostClicked: (Int) -> Void
+    var onPostClicked: (Int) -> Void = { (a: Int) -> Void in }
+    
+    init(viewModel:PostListViewModel, onPostClicked: @escaping (Int) -> Void) {
+        self.viewModel = viewModel
+        self.onPostClicked = onPostClicked
+    }
     
     var body: some View {
-        PostListView(posts: posts, onPostClicked: onPostClicked)
+        PostListView(posts: viewModel.posts, onPostClicked: onPostClicked)
             .onAppear {
-                let repository = PostRepositorySQLDelight(databaseDriverFactory: DatabaseDriverFactory())
-                repository.getAll { fetchedPosts, error in
-                    if let error = error {
-                        print("Error: \(error)")
-                    } else if let posts = fetchedPosts {
-                        self.posts = posts
-                        posts.forEach { post in
-                            print(post)
-                        }
-                    }
-                }
+                viewModel.onLaunched()
             }
     }
 }

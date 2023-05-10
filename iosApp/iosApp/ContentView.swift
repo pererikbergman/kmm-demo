@@ -3,9 +3,14 @@ import shared
 
 struct ContentView: View {
     var body: some View {
-        PostListScreen(onPostClicked: { postId in
-            print("Post \(postId) clicked!")
-        })
+        PostListScreen(
+            viewModel : PostListViewModel(
+                repo : PostRepositorySQLDelight(databaseDriverFactory:DatabaseDriverFactory())
+            ),
+            onPostClicked: { postId in
+                print("Post \(postId) clicked!")
+            }
+        )
     }
 }
 

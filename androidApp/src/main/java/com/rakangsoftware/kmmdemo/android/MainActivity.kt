@@ -6,6 +6,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import com.rakangsoftware.kmmdemo.data.database.DatabaseDriverFactory
+import com.rakangsoftware.kmmdemo.data.database.PostRepositorySQLDelight
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,7 +19,13 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    PostListScreen(modifier = Modifier.fillMaxSize()) { postId ->
+                    // TODO: Fix proper DI.
+                    val viewModel = PostListViewModel(
+                        PostRepositorySQLDelight(
+                            DatabaseDriverFactory(LocalContext.current)
+                        )
+                    )
+                    PostListScreen(viewModel, modifier = Modifier.fillMaxSize()) { postId ->
                         println("Post $postId clicked.")
                     }
                 }

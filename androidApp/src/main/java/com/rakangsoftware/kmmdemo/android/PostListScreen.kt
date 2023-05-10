@@ -7,10 +7,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -19,20 +16,15 @@ import com.rakangsoftware.kmmdemo.data.database.PostRepositorySQLDelight
 import com.rakangsoftware.kmmdemo.domain.Post
 
 @Composable
-fun PostListScreen(modifier: Modifier = Modifier, onPostClicked: (id: Int) -> Unit) {
-    val context = LocalContext.current
-    val list = remember { mutableStateListOf<Post>() }
-    LaunchedEffect(true) {
-        list.apply {
-            clear()
-            addAll(
-                PostRepositorySQLDelight(DatabaseDriverFactory(context))
-                    .getAll()
-            )
-        }
-    }
+fun PostListScreen(
+    viewModel: PostListViewModel,
+    modifier: Modifier = Modifier,
+    onPostClicked: (id: Int) -> Unit
+) {
+    val posts = viewModel.uiState.collectAsState()
+
     PostListView(
-        posts = list,
+        posts = posts.value,
         modifier = modifier,
         onPostClicked = onPostClicked
     )
