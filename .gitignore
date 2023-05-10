@@ -17,8 +17,6 @@ content-creator-old
 *.jks
 
 # iOS files
-*.xcodeproj/
-*.xcworkspace/
 *.pbxproj
 *.mode1v3
 *.mode2v3
